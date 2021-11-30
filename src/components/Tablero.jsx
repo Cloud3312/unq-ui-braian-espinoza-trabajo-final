@@ -1,88 +1,71 @@
 import React, { useEffect, useState } from 'react'
-import { images4x4 } from '../utility/imagenesList4x4.js'
 import Card from './Card.js'
 import './Tablero.css'
 
-const Tablero = () => {
+const Tablero = ({ images }) => {
   const [cards, setCards] = useState([])
-  const [firstCard, setFirstCard] = useState({ name: null, number: null })
-  const [secondCard, setSecondCard] = useState({ name: null, number: null })
+  const [firstCard, setFirstCard] = useState(null)
+  const [secondCard, setSecondCard] = useState(null)
   const [score, setScore] = useState(0)
+  const [disabled, setDisabled] = useState(false)
 
-  const [unflippedCards, setUnflippedCards] = useState([]) //cartas que no matchearon
-  const [disabledCards, setDisabledCards] = useState([]) //cartas que matchearon
+  // const [unflippedCards, setUnflippedCards] = useState([]) //cartas que no matchearon
+  // const [disabledCards, setDisabledCards] = useState([]) //cartas que matchearon
 
-  useEffect(() => {
-    shuffleArray(images4x4)
-    setCards(images4x4)
-  }, [])
-
-  useEffect(() => {
-    checkForMatch()
-  }, [secondCard])
-
-  const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1))
-      let temp = array[i]
-      array[i] = array[j]
-      array[j] = temp
-    }
+  const shuffleCards = () => {
+    const shuffledCards = [...images, ...images]
+      .sort(() => Math.random() - 0.5)
+      .map((card) => ({ ...card, id: Math.random() }))
+    //setCartasHastaAhora([]);
+    setFirstCard(null)
+    setSecondCard(null)
+    setCards(shuffledCards)
+    setScore(0)
   }
 
-  const checkForMatch = () => {
-    if (firstCard.name && secondCard.name) {
-      const match = firstCard.name === secondCard.name
-      match ? disableCards() : unflipCards()
-    }
-  }
-
-  const disableCards = () => {
-    setDisabledCards(
-      disabledCards.concat([firstCard.number, secondCard.number])
-    )
-    setScore(score + 1)
-    console.log(disabledCards)
-    resetCards()
-  }
-
-  const unflipCards = () => {
-    setUnflippedCards([firstCard.number, secondCard.number])
-    resetCards()
-  }
-
-  const resetCards = () => {
-    setFirstCard({ name: null, number: null })
-    setSecondCard({ name: null, number: null })
-  }
-
-  const flipCard = (name, number) => {
-    //esto te salva de romperse, si son la misma carta
-    if (firstCard.name === name && firstCard.number === number) {
-      return 0
-    } else if (!firstCard.name) {
-      setFirstCard({ name, number }) //si no existe, se setea
-    } else if (!secondCard.name) {
-      setSecondCard({ name, number }) //si no existe, se setea
-    }
-    return 1
+  const handleChoice = (card) => {
+    firstCard ? setSecondCard(card) : setFirstCard(card)
   }
 
   useEffect(() => {
-    checkForMatch()
-  }, [secondCard])
+    if (firstCard && secondCard) {
+      setDisabled(true)
+      if (firstCard.src === secondCard.src) {
+        setCards((prevCards) => {
+          return prevCards.map((card) => {
+            if (card.src === firstCard.src) {
+              return { ...card, matched: true }
+            } else {
+              return card
+            }
+          })
+        })
+        resetTurn()
+      } else {
+        setTimeout(() => resetTurn(), 700)
+      }
+    }
+  }, [firstCard, secondCard])
+
+  const resetTurn = () => {
+    setFirstCard(null)
+    setSecondCard(null)
+    setDisabled(false)
+  }
 
   return (
     <div className='tableroContainer'>
+      <button onClick={shuffleCards}>New Game </button>
       <div className='cartas-container'>
-        {cards.map((card, index) => (
+        {cards.map((card) => (
           <Card
-            name={card.player}
-            number={index}
-            frontFace={card.src}
-            flipCard={flipCard}
-            unflippedCards={unflippedCards}
-            disabledCards={disabledCards}
+            key={card.id}
+            card={card}
+            handleChoice={handleChoice}
+            cardFlipped={
+              card === firstCard || card === secondCard || card.matched
+            }
+            disabled={disabled}
           />
         ))}
       </div>

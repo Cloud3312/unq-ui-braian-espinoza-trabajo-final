@@ -10,67 +10,39 @@ import img8 from '../imagenes/imagenes4x4/messi.png'
 const images4x4 = [
   {
     src: img1,
-    player: 'Dibu',
-  },
-  {
-    src: img1,
-    player: 'Dibu',
+    matched: false,
   },
   {
     src: img2,
-    player: 'De Paul',
+    matched: false,
   },
-  {
-    src: img2,
-    player: 'De Paul',
-  },
+
   {
     src: img3,
-    player: 'Di Maria',
-  },
-  {
-    src: img3,
-    player: 'Di Maria',
+    matched: false,
   },
   {
     src: img4,
-    player: 'Julian Alvarez',
-  },
-  {
-    src: img4,
-    player: 'Julian Alvarez',
+    matched: false,
   },
   {
     src: img5,
-    player: 'Kun Aguero',
+    matched: false,
   },
-  {
-    src: img5,
-    player: 'Kun Aguero',
-  },
+
   {
     src: img6,
-    player: 'Lautaro Martinez',
+    matched: false,
   },
-  {
-    src: img6,
-    player: 'Lautaro Martinez',
-  },
+
   {
     src: img7,
-    player: 'Mascherano',
+    matched: false,
   },
-  {
-    src: img7,
-    player: 'Mascherano',
-  },
+
   {
     src: img8,
-    player: 'Messi',
-  },
-  {
-    src: img8,
-    player: 'Messi',
+    matched: false,
   },
 ]
 
