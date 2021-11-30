@@ -1,0 +1,15 @@
+.card {
+  cursor: pointer;
+}
+
+.backface {
+  width: 100px;
+  height: 100px;
+  margin: 0.3rem;
+}
+
+.frontface {
+  width: 100px;
+  height: 100px;
+  margin: 0.3rem;
+}
