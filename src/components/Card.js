@@ -7,7 +7,9 @@ const Card = ({ key, card, handleChoice, cardFlipped, disabled }) => {
   // const [hasEvent, setHasEvent] = useState(true)
 
   const handleClick = () => {
-    if (!disabled) handleChoice(card)
+    if (!disabled) {
+      handleChoice(card)
+    }
   }
 
   return (

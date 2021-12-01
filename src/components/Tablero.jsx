@@ -8,9 +8,7 @@ const Tablero = ({ images, setJugando }) => {
   const [secondCard, setSecondCard] = useState(null)
   const [score, setScore] = useState(0)
   const [disabled, setDisabled] = useState(false)
-
-  // const [unflippedCards, setUnflippedCards] = useState([]) //cartas que no matchearon
-  // const [disabledCards, setDisabledCards] = useState([]) //cartas que matchearon
+  const [unflippedCards, setUnflippedCards] = useState(0)
 
   const shuffleCards = () => {
     const shuffledCards = [...images, ...images]
@@ -21,6 +19,7 @@ const Tablero = ({ images, setJugando }) => {
     setSecondCard(null)
     setCards(shuffledCards)
     setScore(0)
+    setUnflippedCards(0)
   }
 
   const handleChoice = (card) => {
@@ -28,33 +27,36 @@ const Tablero = ({ images, setJugando }) => {
   }
 
   // const allSelected = () => {
-  //   return cards.every((c) => c.matched === true)
+  //   if (cards.every((c) => c.matched === true)) {
+  //     setEstanTodas(true)
+  //   }
   // }
-
-  // useEffect(() => {
-  //   allSelected()
-  // }, cards)
 
   useEffect(() => {
     if (firstCard && secondCard) {
       setDisabled(true)
-      if (firstCard.src === secondCard.src) {
-        setCards((prevCards) => {
-          return prevCards.map((card) => {
-            if (card.src === firstCard.src) {
-              setScore(score + 1)
-              return { ...card, matched: true }
-            } else {
-              return card
-            }
-          })
-        })
-        resetTurn()
-      } else {
-        setTimeout(() => resetTurn(), 700)
-      }
+      playCards()
     }
   }, [firstCard, secondCard])
+
+  const playCards = () => {
+    if (firstCard.src === secondCard.src) {
+      setCards((prevCards) => {
+        return prevCards.map((card) => {
+          if (card.src === firstCard.src) {
+            setScore(score + 1)
+            setUnflippedCards(unflippedCards + 2)
+            return { ...card, matched: true }
+          } else {
+            return card
+          }
+        })
+      })
+      resetTurn()
+    } else {
+      setTimeout(() => resetTurn(), 700)
+    }
+  }
 
   useEffect(() => {
     shuffleCards()
@@ -66,15 +68,15 @@ const Tablero = ({ images, setJugando }) => {
     setDisabled(false)
   }
 
-  const cambiarEstado = (event) => {
+  const changeState = (event) => {
     event.preventDefault()
     setJugando(false)
   }
 
   return (
     <div className='tableroContainer'>
-      <button onClick={shuffleCards}>New Game </button>
-      <button onClick={cambiarEstado}>asdasdassda</button>
+      <button onClick={shuffleCards}>Reset match </button>
+      {/* <button onClick={changeState}>New Game</button> */}
       <div className='cartas-container'>
         {cards.map((card) => (
           <Card
@@ -90,8 +92,11 @@ const Tablero = ({ images, setJugando }) => {
       </div>
       <div className='score'>
         <h1>Puntuacion: {score}</h1>
+        <h1>cartas: {unflippedCards}</h1>
       </div>
-      {/* {allSelected ? alert('hola') : null} */}
+      {unflippedCards === cards.length ? (
+        <button onClick={changeState}>Play again</button>
+      ) : null}
     </div>
   )
 }

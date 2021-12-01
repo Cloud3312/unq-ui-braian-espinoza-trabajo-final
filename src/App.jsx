@@ -1,7 +1,6 @@
 import Inicio from 'components/Inicio'
 import Tablero from 'components/Tablero'
 import React, { useState } from 'react'
-import { images4x4 } from 'utility/imagenesList4x4'
 import './App.css'
 function App() {
   const [jugando, setJugando] = useState(false)
@@ -14,7 +13,7 @@ function App() {
   return (
     <div>
       {jugando ? (
-        <Tablero images={images4x4} setJugando={setJugando} />
+        <Tablero images={images} setJugando={setJugando} />
       ) : (
         <Inicio setImages={setImages} setJugando={setJugando} />
       )}

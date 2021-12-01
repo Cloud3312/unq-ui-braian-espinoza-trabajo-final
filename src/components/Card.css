@@ -11,12 +11,6 @@
   border-radius: 6px;
 }
 
-/* .frontface {
-  width: 100px;
-  height: 100px;
-  margin: 0.3rem;
-} */
-
 .card .front {
   transform: rotateY(90deg);
   transition: all ease-in 0.2s;
