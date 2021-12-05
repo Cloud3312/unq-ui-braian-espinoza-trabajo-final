@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Card from './Card.js'
 import './Tablero.css'
 
-const Tablero = ({ images, setJugando }) => {
+const Tablero = ({ images, setJugando, jugadores }) => {
   const [cards, setCards] = useState([])
   const [firstCard, setFirstCard] = useState(null)
   const [secondCard, setSecondCard] = useState(null)
@@ -92,6 +92,17 @@ const Tablero = ({ images, setJugando }) => {
       </div>
       <div className='score'>
         <h1>Puntuacion: {score}</h1>
+
+        {jugadores[0] ? (
+          <h1>puntaje Jugador1: {jugadores[0].puntaje}</h1>
+        ) : (
+          <h1>no funciono</h1>
+        )}
+
+        {jugadores[1] ? (
+          <h1>puntaje Jugador2: {jugadores[1].puntaje}</h1>
+        ) : null}
+
         <h1>cartas: {unflippedCards}</h1>
       </div>
       {unflippedCards === cards.length ? (
