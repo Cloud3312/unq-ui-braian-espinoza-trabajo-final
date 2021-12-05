@@ -5,10 +5,9 @@ import './App.css'
 function App() {
   const [jugando, setJugando] = useState(false)
   const [images, setImages] = useState([])
-  const [jugadores, setJugadores] = useState([{ nombre: null, puntaje: null }])
-  // const cambiarEstado = (valor) => {
-  //   setJugando(valor)
-  // }
+  const [selectedJugadores, setSelectedJugadores] = useState([
+    { nombre: null, puntaje: 0 },
+  ])
 
   return (
     <div>
@@ -16,13 +15,13 @@ function App() {
         <Tablero
           images={images}
           setJugando={setJugando}
-          jugadores={jugadores}
+          selectedJugadores={selectedJugadores}
         />
       ) : (
         <Inicio
           setImages={setImages}
           setJugando={setJugando}
-          setJugadores={setJugadores}
+          setJugadores={setSelectedJugadores}
         />
       )}
     </div>

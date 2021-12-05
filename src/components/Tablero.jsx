@@ -2,23 +2,27 @@ import React, { useEffect, useState } from 'react'
 import Card from './Card.js'
 import './Tablero.css'
 
-const Tablero = ({ images, setJugando, jugadores }) => {
+const Tablero = ({ images, setJugando, selectedJugadores }) => {
   const [cards, setCards] = useState([])
   const [firstCard, setFirstCard] = useState(null)
   const [secondCard, setSecondCard] = useState(null)
-  const [score, setScore] = useState(0)
+
   const [disabled, setDisabled] = useState(false)
   const [unflippedCards, setUnflippedCards] = useState(0)
+  const [jugadores, setJugadores] = useState([selectedJugadores])
+  const [jugadorActual, setJugadorActual] = useState(selectedJugadores[0])
 
   const shuffleCards = () => {
     const shuffledCards = [...images, ...images]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }))
-    //setCartasHastaAhora([]);
+
+    setJugadores(selectedJugadores)
+    setJugadorActual(selectedJugadores[0])
     setFirstCard(null)
     setSecondCard(null)
     setCards(shuffledCards)
-    setScore(0)
+
     setUnflippedCards(0)
   }
 
@@ -26,11 +30,26 @@ const Tablero = ({ images, setJugando, jugadores }) => {
     firstCard ? setSecondCard(card) : setFirstCard(card)
   }
 
-  // const allSelected = () => {
-  //   if (cards.every((c) => c.matched === true)) {
-  //     setEstanTodas(true)
-  //   }
-  // }
+  const sumarPuntaje = () => {
+    setJugadores((prevJugadores) => {
+      return prevJugadores.map((jugador) => {
+        if (jugador.nombre === jugadorActual.nombre) {
+          return { ...jugador, puntaje: jugador.puntaje + 1 }
+        } else {
+          return jugador
+        }
+      })
+    })
+  }
+
+  const pasarTurno = () => {
+    if (jugadores.length >= 2) {
+      const jugador = jugadores.find(
+        (jugador) => jugador.nombre !== jugadorActual.nombre
+      )
+      setJugadorActual(jugador)
+    }
+  }
 
   useEffect(() => {
     if (firstCard && secondCard) {
@@ -44,16 +63,18 @@ const Tablero = ({ images, setJugando, jugadores }) => {
       setCards((prevCards) => {
         return prevCards.map((card) => {
           if (card.src === firstCard.src) {
-            setScore(score + 1)
             setUnflippedCards(unflippedCards + 2)
+
             return { ...card, matched: true }
           } else {
             return card
           }
         })
       })
+      sumarPuntaje()
       resetTurn()
     } else {
+      pasarTurno()
       setTimeout(() => resetTurn(), 700)
     }
   }
@@ -76,7 +97,7 @@ const Tablero = ({ images, setJugando, jugadores }) => {
   return (
     <div className='tableroContainer'>
       <button onClick={shuffleCards}>Reset match </button>
-      {/* <button onClick={changeState}>New Game</button> */}
+
       <div className='cartas-container'>
         {cards.map((card) => (
           <Card
@@ -91,8 +112,6 @@ const Tablero = ({ images, setJugando, jugadores }) => {
         ))}
       </div>
       <div className='score'>
-        <h1>Puntuacion: {score}</h1>
-
         {jugadores[0] ? (
           <h1>puntaje Jugador1: {jugadores[0].puntaje}</h1>
         ) : (
@@ -103,7 +122,7 @@ const Tablero = ({ images, setJugando, jugadores }) => {
           <h1>puntaje Jugador2: {jugadores[1].puntaje}</h1>
         ) : null}
 
-        <h1>cartas: {unflippedCards}</h1>
+        <h1>jugadorActual: {jugadorActual.nombre}</h1>
       </div>
       {unflippedCards === cards.length ? (
         <button onClick={changeState}>Play again</button>

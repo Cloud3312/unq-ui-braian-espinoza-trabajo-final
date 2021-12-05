@@ -5,7 +5,7 @@ import './Inicio.css'
 
 const Inicio = ({ setJugando, setImages, setJugadores }) => {
   const [selectedImages, setSelectedImages] = useState([])
-  const [players, setPlayers] = useState([{ nombre: null, puntaje: null }])
+  const [players, setPlayers] = useState([{ nombre: null, puntaje: 0 }])
 
   //version con parametros
   const setClickedImages = (images) => (event) => {
@@ -50,7 +50,7 @@ const Inicio = ({ setJugando, setImages, setJugadores }) => {
           <button onClick={setNPlayer(2)}>Two player</button>
 
           {/* si no se seleccionaron las imagenes, no se muestra el boton */}
-          {selectedImages.length !== 0 && players.length !== 0 ? (
+          {selectedImages.length !== 0 && players[0].nombre ? (
             <button type='submit'> Confirm </button>
           ) : null}
         </form>
