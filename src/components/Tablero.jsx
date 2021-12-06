@@ -1,39 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import Card from './Card.js'
+import Score from './Score.jsx'
 import './Tablero.css'
 
-const Tablero = ({ images, setJugando, selectedJugadores }) => {
+const Tablero = ({ images, setPlay, selectedJugadores: selectedPlayers }) => {
   const [cards, setCards] = useState([])
   const [firstCard, setFirstCard] = useState(null)
   const [secondCard, setSecondCard] = useState(null)
-
   const [disabled, setDisabled] = useState(false)
   const [unflippedCards, setUnflippedCards] = useState(0)
-  const [jugadores, setJugadores] = useState([selectedJugadores])
-  const [jugadorActual, setJugadorActual] = useState(selectedJugadores[0])
+  const [players, setPlayers] = useState([selectedPlayers])
+  const [actualPlayer, setActualPlayer] = useState(selectedPlayers[0])
 
+  //mezcla las cartas e inicializa todo
   const shuffleCards = () => {
     const shuffledCards = [...images, ...images]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }))
-
-    setJugadores(selectedJugadores)
-    setJugadorActual(selectedJugadores[0])
-    setFirstCard(null)
-    setSecondCard(null)
+    setPlayers(selectedPlayers)
+    setActualPlayer(selectedPlayers[0])
+    resetTurn()
     setCards(shuffledCards)
 
     setUnflippedCards(0)
   }
 
+  //elige en que parte setear la carta seleccionada
   const handleChoice = (card) => {
     firstCard ? setSecondCard(card) : setFirstCard(card)
   }
 
-  const sumarPuntaje = () => {
-    setJugadores((prevJugadores) => {
+  const sumScore = () => {
+    setPlayers((prevJugadores) => {
       return prevJugadores.map((jugador) => {
-        if (jugador.nombre === jugadorActual.nombre) {
+        if (jugador.nombre === actualPlayer.nombre) {
           return { ...jugador, puntaje: jugador.puntaje + 1 }
         } else {
           return jugador
@@ -42,21 +42,14 @@ const Tablero = ({ images, setJugando, selectedJugadores }) => {
     })
   }
 
-  const pasarTurno = () => {
-    if (jugadores.length >= 2) {
-      const jugador = jugadores.find(
-        (jugador) => jugador.nombre !== jugadorActual.nombre
+  const passTurn = () => {
+    if (players.length >= 2) {
+      const jugador = players.find(
+        (jugador) => jugador.nombre !== actualPlayer.nombre
       )
-      setJugadorActual(jugador)
+      setActualPlayer(jugador)
     }
   }
-
-  useEffect(() => {
-    if (firstCard && secondCard) {
-      setDisabled(true)
-      playCards()
-    }
-  }, [firstCard, secondCard])
 
   const playCards = () => {
     if (firstCard.src === secondCard.src) {
@@ -71,17 +64,13 @@ const Tablero = ({ images, setJugando, selectedJugadores }) => {
           }
         })
       })
-      sumarPuntaje()
+      sumScore()
       resetTurn()
     } else {
-      pasarTurno()
+      passTurn()
       setTimeout(() => resetTurn(), 700)
     }
   }
-
-  useEffect(() => {
-    shuffleCards()
-  }, [])
 
   const resetTurn = () => {
     setFirstCard(null)
@@ -91,12 +80,30 @@ const Tablero = ({ images, setJugando, selectedJugadores }) => {
 
   const changeState = (event) => {
     event.preventDefault()
-    setJugando(false)
+    setPlay(false)
   }
+
+  useEffect(() => {
+    shuffleCards()
+  }, [])
+
+  useEffect(() => {
+    if (firstCard && secondCard) {
+      setDisabled(true)
+      playCards()
+    }
+  }, [firstCard, secondCard])
 
   return (
     <div className='tableroContainer'>
-      <button onClick={shuffleCards}>Reset match </button>
+      <div className='topBoardContainer'>
+        <button onClick={shuffleCards}>Reset match </button>
+        <Score
+          player1={players[0]}
+          player2={players[1]}
+          actualPlayer={actualPlayer}
+        />
+      </div>
 
       <div className='cartas-container'>
         {cards.map((card) => (
@@ -111,19 +118,14 @@ const Tablero = ({ images, setJugando, selectedJugadores }) => {
           />
         ))}
       </div>
-      <div className='score'>
-        {jugadores[0] ? (
-          <h1>puntaje Jugador1: {jugadores[0].puntaje}</h1>
-        ) : (
-          <h1>no funciono</h1>
-        )}
+      {/* <div className='score'>
+        <h1>puntaje Jugador1: {players[0].puntaje}</h1>
 
-        {jugadores[1] ? (
-          <h1>puntaje Jugador2: {jugadores[1].puntaje}</h1>
-        ) : null}
+        {players[1] ? <h1>puntaje Jugador2: {players[1].puntaje}</h1> : null}
 
-        <h1>jugadorActual: {jugadorActual.nombre}</h1>
-      </div>
+        <h1>jugadorActual: {actualPlayer.nombre}</h1>
+      </div> */}
+
       {unflippedCards === cards.length ? (
         <button onClick={changeState}>Play again</button>
       ) : null}

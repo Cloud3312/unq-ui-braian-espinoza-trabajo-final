@@ -3,7 +3,7 @@ import Tablero from 'components/Tablero'
 import React, { useState } from 'react'
 import './App.css'
 function App() {
-  const [jugando, setJugando] = useState(false)
+  const [play, setPlay] = useState(false)
   const [images, setImages] = useState([])
   const [selectedJugadores, setSelectedJugadores] = useState([
     { nombre: null, puntaje: 0 },
@@ -11,16 +11,16 @@ function App() {
 
   return (
     <div>
-      {jugando ? (
+      {play ? (
         <Tablero
           images={images}
-          setJugando={setJugando}
+          setPlay={setPlay}
           selectedJugadores={selectedJugadores}
         />
       ) : (
         <Inicio
           setImages={setImages}
-          setJugando={setJugando}
+          setJugando={setPlay}
           setJugadores={setSelectedJugadores}
         />
       )}
