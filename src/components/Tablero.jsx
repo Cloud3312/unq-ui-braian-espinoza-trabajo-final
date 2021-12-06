@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Card from './Card.js'
+import EndGameScreen from './EndGameScreen.jsx'
 import Score from './Score.jsx'
 import './Tablero.css'
 
@@ -97,14 +98,23 @@ const Tablero = ({ images, setPlay, selectedJugadores: selectedPlayers }) => {
   return (
     <div className='tableroContainer'>
       <div className='topBoardContainer'>
-        <button onClick={shuffleCards}>Reset match </button>
+        <div className='resetButtonContainer'>
+          <button onClick={shuffleCards}>Reset match </button>
+        </div>
+
         <Score
           player1={players[0]}
           player2={players[1]}
           actualPlayer={actualPlayer}
         />
       </div>
-
+      {unflippedCards === cards.length ? (
+        <EndGameScreen
+          player1={players[0]}
+          player2={players[1]}
+          changeState={changeState}
+        />
+      ) : null}
       <div className='cartas-container'>
         {cards.map((card) => (
           <Card
@@ -118,17 +128,8 @@ const Tablero = ({ images, setPlay, selectedJugadores: selectedPlayers }) => {
           />
         ))}
       </div>
-      {/* <div className='score'>
-        <h1>puntaje Jugador1: {players[0].puntaje}</h1>
 
-        {players[1] ? <h1>puntaje Jugador2: {players[1].puntaje}</h1> : null}
-
-        <h1>jugadorActual: {actualPlayer.nombre}</h1>
-      </div> */}
-
-      {unflippedCards === cards.length ? (
-        <button onClick={changeState}>Play again</button>
-      ) : null}
+      {/* <button onClick={changeState}>Play again</button> */}
     </div>
   )
 }

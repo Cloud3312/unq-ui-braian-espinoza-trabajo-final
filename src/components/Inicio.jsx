@@ -7,7 +7,6 @@ const Inicio = ({ setJugando, setImages, setJugadores }) => {
   const [selectedImages, setSelectedImages] = useState([])
   const [players, setPlayers] = useState([{ nombre: null, puntaje: 0 }])
 
-  //version con parametros
   const setClickedImages = (images) => (event) => {
     event.preventDefault()
     setSelectedImages(images)
@@ -18,18 +17,17 @@ const Inicio = ({ setJugando, setImages, setJugadores }) => {
     event.preventDefault()
     setImages(selectedImages)
     setJugadores(players)
-    console.log(`jugadores AAAAA ${players[1]}`)
     setJugando(true)
   }
 
   const setNPlayer = (numberOfPlayer) => (event) => {
     event.preventDefault()
     if (numberOfPlayer === 1) {
-      setPlayers([{ nombre: 'Jugador 1', puntaje: 0 }])
+      setPlayers([{ nombre: 'Player 1', puntaje: 0 }])
     } else if (numberOfPlayer === 2) {
       setPlayers([
-        { nombre: 'Jugador 1', puntaje: 0 },
-        { nombre: 'Jugador 2', puntaje: 0 },
+        { nombre: 'Player 1', puntaje: 0 },
+        { nombre: 'Player 2', puntaje: 0 },
       ])
     }
   }

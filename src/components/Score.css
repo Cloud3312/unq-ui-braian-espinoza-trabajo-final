@@ -1,4 +1,10 @@
 .score {
   color: aliceblue;
-  font-size: 10px;
+  font-size: 15px;
+}
+
+@media (max-width: 600px) {
+  .score {
+    font-size: 9px;
+  }
 }
