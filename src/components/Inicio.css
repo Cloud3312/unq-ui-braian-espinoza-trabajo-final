@@ -1,5 +1,61 @@
 .inicio-container {
-  background-color: royalblue;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
   color: white;
-  width: 560px;
+  width: 100%;
+}
+
+.beginningButton {
+  background-color: rgb(80, 8, 173);
+}
+
+.memotestLogoContainer img {
+  width: 100%;
+  justify-content: center;
+  align-self: center;
+}
+
+.tableContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.tableContainer h2 {
+  margin-bottom: 2rem;
+}
+
+.tableContainer button {
+  margin-right: 1rem;
+}
+
+.beginningButton:focus {
+  background-color: rgb(210, 216, 210);
+  color: black;
+}
+
+.playersContainer {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.playersContainer h2 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.playersContainer button {
+  margin-right: 1rem;
+}
+
+.confirmBtnContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

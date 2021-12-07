@@ -1,5 +1,5 @@
 import React from 'react'
-import backface from '../imagenes/interrogacion.jpg'
+import backface from '../imagenes/imagenes4x4/interrogacion.jpg'
 import './Card.css'
 
 const Card = ({ key, card, handleChoice, cardFlipped, disabled }) => {

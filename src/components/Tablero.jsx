@@ -128,7 +128,7 @@ const Tablero = ({ images, setPlay, selectedJugadores: selectedPlayers }) => {
           />
         ))}
       </div>
-
+      {/* preguntar si este boton tiene que estar siempre o solo cuando termina*/}
       {/* <button onClick={changeState}>Play again</button> */}
     </div>
   )
