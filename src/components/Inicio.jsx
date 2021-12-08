@@ -45,8 +45,6 @@ const Inicio = ({ setJugando, setImages, setJugadores }) => {
             <h2>Select the size of table</h2>
 
             <div>
-              {/* este es el caso de prueba, pueden descomentarlo para probar las funcionalidades del codigo */}
-              {/* <button onClick={setClickedImages(images2x1)}>Table 2x1</button> */}
               <button onClick={setClickedImages(images4x4)}>Table 4x4</button>
               <button onClick={setClickedImages(images5x5)}>Table 5x5</button>
               <button onClick={setClickedImages(images8x8)}>Table 8x8</button>
