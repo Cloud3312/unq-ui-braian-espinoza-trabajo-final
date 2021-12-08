@@ -88,6 +88,9 @@ const Board = ({ images, setPlay, selectedPlayers }) => {
     shuffleCards()
   }, [])
 
+  let board8x8 = cards.length === 64
+  let board5x5 = cards.length === 26
+
   useEffect(() => {
     if (firstCard && secondCard) {
       setDisabled(true)
@@ -115,7 +118,11 @@ const Board = ({ images, setPlay, selectedPlayers }) => {
           changeState={changeState}
         />
       ) : null}
-      <div className='cartas-container'>
+      <div
+        className={`cartas-container ${board5x5 ? 'board5x5' : null} ${
+          board8x8 ? 'board8x8' : null
+        }`}
+      >
         {cards.map((card) => (
           <Card
             card={card}
@@ -127,8 +134,6 @@ const Board = ({ images, setPlay, selectedPlayers }) => {
           />
         ))}
       </div>
-      {/* preguntar si este boton tiene que estar siempre o solo cuando termina*/}
-      {/* <button onClick={changeState}>Play again</button> */}
     </div>
   )
 }

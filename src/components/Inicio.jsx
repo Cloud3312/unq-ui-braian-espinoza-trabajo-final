@@ -1,6 +1,5 @@
 import memoTestLogo from 'imagenes/memotestLogo.png'
 import React, { useState } from 'react'
-import { images2x1 } from 'utility/imagenesList2x1'
 import { images4x4 } from 'utility/imagenesList4x4'
 import { images8x8 } from 'utility/images8X8'
 import { images5x5 } from 'utility/imagesList5x5'
@@ -44,8 +43,10 @@ const Inicio = ({ setJugando, setImages, setJugadores }) => {
 
           <div className='tableContainer'>
             <h2>Select the size of table</h2>
-            <button onClick={setClickedImages(images2x1)}>Table 2x1</button>
+
             <div>
+              {/* este es el caso de prueba, pueden descomentarlo para probar las funcionalidades del codigo */}
+              {/* <button onClick={setClickedImages(images2x1)}>Table 2x1</button> */}
               <button onClick={setClickedImages(images4x4)}>Table 4x4</button>
               <button onClick={setClickedImages(images5x5)}>Table 5x5</button>
               <button onClick={setClickedImages(images8x8)}>Table 8x8</button>
