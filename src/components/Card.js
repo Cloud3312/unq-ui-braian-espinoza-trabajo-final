@@ -2,10 +2,7 @@ import React from 'react'
 import backface from '../imagenes/imagenes4x4/interrogacion.jpg'
 import './Card.css'
 
-const Card = ({ key, card, handleChoice, cardFlipped, disabled }) => {
-  // const [isFlipped, setIsFlipped] = useState(false)
-  // const [hasEvent, setHasEvent] = useState(true)
-
+const Card = ({ card, handleChoice, cardFlipped, disabled }) => {
   const handleClick = () => {
     if (!disabled) {
       handleChoice(card)

@@ -44,12 +44,7 @@ const Inicio = ({ setJugando, setImages, setJugadores }) => {
 
           <div className='tableContainer'>
             <h2>Select the size of table</h2>
-            <button
-              className='beginningButton'
-              onClick={setClickedImages(images2x1)}
-            >
-              Table 2x1
-            </button>
+            <button onClick={setClickedImages(images2x1)}>Table 2x1</button>
             <div>
               <button onClick={setClickedImages(images4x4)}>Table 4x4</button>
               <button onClick={setClickedImages(images5x5)}>Table 5x5</button>

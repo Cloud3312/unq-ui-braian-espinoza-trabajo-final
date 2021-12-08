@@ -1,5 +1,5 @@
+import Board from 'components/Board'
 import Inicio from 'components/Inicio'
-import Tablero from 'components/Tablero'
 import React, { useState } from 'react'
 import './App.css'
 function App() {
@@ -12,10 +12,10 @@ function App() {
   return (
     <div>
       {play ? (
-        <Tablero
+        <Board
           images={images}
           setPlay={setPlay}
-          selectedJugadores={selectedJugadores}
+          selectedPlayers={selectedJugadores}
         />
       ) : (
         <Inicio

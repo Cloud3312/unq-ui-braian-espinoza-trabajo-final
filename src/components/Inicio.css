@@ -6,10 +6,6 @@
   width: 100%;
 }
 
-.beginningButton {
-  background-color: rgb(80, 8, 173);
-}
-
 .memotestLogoContainer img {
   width: 100%;
   justify-content: center;
@@ -29,11 +25,6 @@
 
 .tableContainer button {
   margin-right: 1rem;
-}
-
-.beginningButton:focus {
-  background-color: rgb(210, 216, 210);
-  color: black;
 }
 
 .playersContainer {

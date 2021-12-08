@@ -9,7 +9,7 @@
 .cartas-container {
   margin-top: 20px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; /* 4 different columns in grid */
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 10px;
 }
 

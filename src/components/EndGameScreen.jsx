@@ -15,6 +15,15 @@ const EndGameScreen = ({ player1, player2, changeState }) => {
       {player2 && player2.puntaje > player1.puntaje ? (
         <WinnerPlayer winnerPlayer={player2} changeState={changeState} />
       ) : null}
+
+      {player2 && player2.puntaje === player1.puntaje ? (
+        <div>
+          <h2>Draw. No one wins</h2>
+          <button className='playAgainBtn' onClick={changeState}>
+            Play again
+          </button>
+        </div>
+      ) : null}
     </div>
   )
 }

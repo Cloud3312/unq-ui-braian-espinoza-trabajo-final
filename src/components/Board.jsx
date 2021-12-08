@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import './Board.css'
 import Card from './Card.js'
 import EndGameScreen from './EndGameScreen.jsx'
 import Score from './Score.jsx'
-import './Tablero.css'
 
-const Tablero = ({ images, setPlay, selectedJugadores: selectedPlayers }) => {
+const Board = ({ images, setPlay, selectedPlayers }) => {
   const [cards, setCards] = useState([])
   const [firstCard, setFirstCard] = useState(null)
   const [secondCard, setSecondCard] = useState(null)
@@ -32,12 +32,12 @@ const Tablero = ({ images, setPlay, selectedJugadores: selectedPlayers }) => {
   }
 
   const sumScore = () => {
-    setPlayers((prevJugadores) => {
-      return prevJugadores.map((jugador) => {
-        if (jugador.nombre === actualPlayer.nombre) {
-          return { ...jugador, puntaje: jugador.puntaje + 1 }
+    setPlayers((prevPlayers) => {
+      return prevPlayers.map((player) => {
+        if (player.nombre === actualPlayer.nombre) {
+          return { ...player, puntaje: player.puntaje + 1 }
         } else {
-          return jugador
+          return player
         }
       })
     })
@@ -118,7 +118,6 @@ const Tablero = ({ images, setPlay, selectedJugadores: selectedPlayers }) => {
       <div className='cartas-container'>
         {cards.map((card) => (
           <Card
-            key={card.id}
             card={card}
             handleChoice={handleChoice}
             cardFlipped={
@@ -134,4 +133,4 @@ const Tablero = ({ images, setPlay, selectedJugadores: selectedPlayers }) => {
   )
 }
 
-export default Tablero
+export default Board
