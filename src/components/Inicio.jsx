@@ -59,7 +59,6 @@ const Inicio = ({ setJugando, setImages, setJugadores }) => {
             </div>
           </div>
 
-          {/* si no se seleccionaron las imagenes, no se muestra el boton */}
           <div className='confirmBtnContainer'>
             {selectedImages.length !== 0 && players[0].nombre ? (
               <button className='' type='submit'>
