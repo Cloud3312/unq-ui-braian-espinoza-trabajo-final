@@ -1,6 +1,11 @@
 
 # UIs » Trabajo Final Integrador (TFI) » 2°C 2021 MEMOTEST #
 
+
+Proyecto realizado para la materia Construccion de Interfaces de Usuario de la UNQ.
+
+
+
 Descargar e instalar el proyecto:
 
 abrir la consola de git e ingresar el comando
